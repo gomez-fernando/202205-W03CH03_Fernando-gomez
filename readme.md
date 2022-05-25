@@ -1,31 +1,22 @@
-# Learning TS in the Web
+# Week 3 - Challenge 3
 
-## TODO List
+## Series
 
--   Cada tarea es un objeto con
+Aquí tienes una aplicación maquetada con HTML y CSS. Se trata de una aplicación que gestiona un listado de series, separándolas entre series vistas y no vistas.
 
-    -   id
-    -   name
-    -   responsable
-    -   isCompleted (false)
+Esta aplicación se alimentará de un objeto JS que tienes en el archivo `series.js`.
 
--   Existe una lista inicial (JS)
+Tienes que mostrar un listado de series, separándolas entre vistas y no vistas. Cada serie tiene que mostrar toda la información que ves en la maqueta. Si la serie es no vista, sus estrellas tienen que estar a 0 y el usuario debería poder clicar para valorar la serie con las estrellas que crea necesario. Al clicar en una estrella, la aplicación debe modificar la valoración y la serie debe pasar de no vista a vista (no hay ninguna manera de pasar una serie de vista a no vista).
 
--   Se listan las tareas
+Si el usuario hace click en el icono de la x, la serie se debe eliminar.
+# Week 3 - Challenge 3
 
--------- Create - Read - Update - Delete
+## Series
 
--   Se puede añadir tareas
+Aquí tienes una aplicación maquetada con HTML y CSS. Se trata de una aplicación que gestiona un listado de series, separándolas entre series vistas y no vistas.
 
--   Se puede completar una tarea
+Esta aplicación se alimentará de un objeto JS que tienes en el archivo `series.js`.
 
--   Se borran tareas
+Tienes que mostrar un listado de series, separándolas entre vistas y no vistas. Cada serie tiene que mostrar toda la información que ves en la maqueta. Si la serie es no vista, sus estrellas tienen que estar a 0 y el usuario debería poder clicar para valorar la serie con las estrellas que crea necesario. Al clicar en una estrella, la aplicación debe modificar la valoración y la serie debe pasar de no vista a vista (no hay ninguna manera de pasar una serie de vista a no vista).
 
------ Componentes: Clases: Component / Cada componente
-
---- Header
---- Menu (Home / About)
---- Footer
---- Lista
---- Item (tarea)
---- Añadir
+Si el usuario hace click en el icono de la x, la serie se debe eliminar.
