@@ -1,4 +1,4 @@
-export interface serieList {
+export interface iSerie {
     id: number;
     name: string;
     creator: string;
