@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 import { SERIES } from '../models/data.js';
-import { seriesList } from '../models/data original.js';
+import { iSerie } from '../interfaces/interface.js';
 
 export class StoreClass {
     store: string;
     constructor() {
-        this.store = 'Tasks';
+        this.store = 'Series';
     }
 
     getTasks(): Array<iSerie> {
         return localStorage.getItem(this.store)
             ? JSON.parse(<string>localStorage.getItem(this.store))
-            : TASKS;
+            : SERIES;
     }
 
     setTasks(tasks: Array<iSerie>) {
