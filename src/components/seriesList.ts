@@ -56,19 +56,19 @@ export class SeriesList extends Component implements iComponent {
             <ul class="score">
               <li class="score__star">
                 <input type="radio" id="age1" name="age" value="30">
-                <i class="icon--score fas fa-star" title="1/5"></i>
+                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score fas fa-star" title="2/5"></i>
+                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score fas fa-star" title="3/5"></i>
+                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score fas fa-star" title="4/5"></i>
+                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score fas fa-star" title="5/5"></i>
+                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
               </li>
             </ul>
             <i class="fas fa-times-circle icon--delete"></i>
