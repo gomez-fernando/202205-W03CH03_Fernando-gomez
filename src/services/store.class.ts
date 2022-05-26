@@ -8,17 +8,17 @@ export class StoreClass {
         this.store = 'Series';
     }
 
-    getTasks(): Array<iSerie> {
+    getSeries(): Array<iSerie> {
         return localStorage.getItem(this.store)
             ? JSON.parse(<string>localStorage.getItem(this.store))
             : SERIES;
     }
 
-    setTasks(tasks: Array<iSerie>) {
+    setSeries(tasks: Array<iSerie>) {
         localStorage.setItem(this.store, JSON.stringify(tasks));
     }
 
-    deleteTasks() {
+    seleteSeries() {
         localStorage.removeItem(this.store);
     }
 }

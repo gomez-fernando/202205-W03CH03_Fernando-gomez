@@ -1,18 +1,18 @@
 import { Component } from './component.js';
-// import { Serie } from './serie.js';
-import { seriesList } from '../models/data original.js';
+import { StoreClass } from '../services/store.class.js';
 export class SeriesList extends Component {
+    selector;
     series;
     watched;
     list;
     constructor(selector, watched) {
         super();
-        this.series = seriesList;
+        this.selector = selector;
+        this.series = new StoreClass().getSeries();
         this.watched = watched;
         this.list = [];
         this.scoreStar();
-        this.template = this.createTemplate();
-        this.render(selector);
+        this.updateComponent();
     }
     createTemplate() {
         let html = '';
@@ -25,6 +25,35 @@ export class SeriesList extends Component {
                 <!--<p class="info">Congrats! You've watched all your series</p>-->
                 <ul class="series-list">
             `;
+            this.list.forEach(element => {
+                html += `<li class="serie">
+                <img
+                  class="serie__poster"
+                  src="${element.poster}"
+                  alt="The Sopranos poster"
+                />
+                <h4 class="serie__title">${element.name}</h4>
+                <p class="serie__info">${element.creator} (${element.year})</p>
+                <ul class="score">
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
+                  </li>
+                </ul>
+                <i class="fas fa-times-circle icon--delete"></i>
+              </li>`;
+            });
         }
         else if (!this.watched) {
             this.list = this.series.filter((item) => item.watched === false);
@@ -34,36 +63,36 @@ export class SeriesList extends Component {
             <!--<p class="info">You already have not watched any serie</p>-->
             <ul class="series-list series-list--watched">
             `;
+            this.list.forEach(element => {
+                html += `<li class="serie">
+                <img
+                  class="serie__poster"
+                  src="${element.poster}"
+                  alt="The Sopranos poster"
+                />
+                <h4 class="serie__title">${element.name}</h4>
+                <p class="serie__info">${element.creator} (${element.year})</p>
+                <ul class="score">
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
+                  </li>
+                  <li class="score__star">
+                    <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
+                  </li>
+                </ul>
+                <i class="fas fa-times-circle icon--delete"></i>
+              </li>`;
+            });
         }
-        this.list.forEach(element => {
-            html += `<li class="serie">
-            <img
-              class="serie__poster"
-              src="${element.poster}"
-              alt="The Sopranos poster"
-            />
-            <h4 class="serie__title">${element.name}</h4>
-            <p class="serie__info">${element.creator} (${element.year})</p>
-            <ul class="score">
-              <li class="score__star">
-                <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
-              </li>
-              <li class="score__star">
-                <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
-              </li>
-              <li class="score__star">
-                <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
-              </li>
-              <li class="score__star">
-                <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
-              </li>
-              <li class="score__star">
-                <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
-              </li>
-            </ul>
-            <i class="fas fa-times-circle icon--delete"></i>
-          </li>`;
-        });
         return html;
     }
     scoreStar() {
@@ -76,10 +105,32 @@ export class SeriesList extends Component {
     handlerButton(ev) {
         const starTitle = ev.target.dataset.star;
         const starName = ev.target.dataset.name;
+        // const item = this.series.find(element => element.name === starName);
         const item = this.series.find(element => element.name === starName);
         if (item !== undefined && starTitle !== undefined) {
             item.score = parseInt(starTitle, 10);
+            item.watched = true;
+            new StoreClass().setSeries(this.series);
+            new SeriesList('section.series-pending', false);
+            new SeriesList('section.series-watched', true);
         }
-        console.log(item);
+        this.updateComponent();
+    }
+    manageComponent() {
+        document
+            .querySelectorAll('.button')
+            .forEach((item) => item.addEventListener('click', this.handlerButton.bind(this)));
+        document
+            .querySelectorAll('[type=checkbox]');
+        // .forEach((item) =>
+        //     item.addEventListener('change', this.handlerChange.bind(this))
+        // );
+    }
+    updateComponent() {
+        this.template = this.createTemplate();
+        this.render(this.selector);
+        this.manageComponent();
+        // alert('dffd')
+        // new AddTask('slot.addTask', this.addTask.bind(this));
     }
 }
