@@ -18,7 +18,7 @@ export class StoreClass {
         localStorage.setItem(this.store, JSON.stringify(tasks));
     }
 
-    seleteSeries() {
+    deleteSeries() {
         localStorage.removeItem(this.store);
     }
 }

@@ -42,8 +42,6 @@ export class SeriesList extends Component implements iComponent {
             <!--<p class="info">You already have not watched any serie</p>-->
             <ul class="series-list series-list--watched">
             `;
-
-           
         }
 
         this.list.forEach(element => {
@@ -72,7 +70,7 @@ export class SeriesList extends Component implements iComponent {
                 <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
               </li>
             </ul>
-            <i class="fas fa-times-circle icon--delete"></i>
+            <i data-name="${element.name}" class="fas fa-times-circle icon--delete"></i>
           </li>`
         });
 
@@ -92,7 +90,6 @@ export class SeriesList extends Component implements iComponent {
         const starTitle = (<HTMLElement>ev.target).dataset.star;
         const starName = (<HTMLElement>ev.target).dataset.name;
 
-        // const item = this.series.find(element => element.name === starName);
         const item = this.series.find(element => element.name === starName);
         if(item !== undefined && starTitle !== undefined) {
             item.score = parseInt(starTitle, 10);
@@ -102,20 +99,32 @@ export class SeriesList extends Component implements iComponent {
             new SeriesList('section.series-pending', false);
             new SeriesList('section.series-watched', true);
         }
-        this.updateComponent();
     }
 
     private manageComponent() {
         document
-            .querySelectorAll('.button')
+            .querySelectorAll('.icon--delete')
             .forEach((item) =>
-                item.addEventListener('click', this.handlerButton.bind(this))
+                item.addEventListener('click', this.deleteSerie.bind(this))
             );
-        document
-            .querySelectorAll('[type=checkbox]')
-            // .forEach((item) =>
-            //     item.addEventListener('change', this.handlerChange.bind(this))
-            // );
+    }
+    private deleteSerie(ev: Event) {
+        const circleName = (<HTMLElement>ev.target).dataset.name;
+
+        if(this.series.find(element => element.name === circleName) !== null){
+            // console.log(this.series.find(element => element.name === circleName));
+
+            const series2 = this.series.filter(serie => serie.name !== circleName );
+            console.log(series2);
+            this.series = series2;
+            console.log('series: ' + this.series);
+
+
+            new StoreClass().setSeries(this.series);
+
+            new SeriesList('section.series-pending', false);
+            new SeriesList('section.series-watched', true);
+        }
     }
 
     private updateComponent() {
@@ -123,8 +132,5 @@ export class SeriesList extends Component implements iComponent {
         this.template = this.createTemplate();
         this.render(this.selector);
         this.manageComponent();
-        // alert('dffd')
-        
-        // new AddTask('slot.addTask', this.addTask.bind(this));
     }
 }

@@ -61,7 +61,7 @@ export class SeriesList extends Component {
                 <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
               </li>
             </ul>
-            <i class="fas fa-times-circle icon--delete"></i>
+            <i data-name="${element.name}" class="fas fa-times-circle icon--delete"></i>
           </li>`;
         });
         return html;
@@ -76,7 +76,6 @@ export class SeriesList extends Component {
     handlerButton(ev) {
         const starTitle = ev.target.dataset.star;
         const starName = ev.target.dataset.name;
-        // const item = this.series.find(element => element.name === starName);
         const item = this.series.find(element => element.name === starName);
         if (item !== undefined && starTitle !== undefined) {
             item.score = parseInt(starTitle, 10);
@@ -85,23 +84,28 @@ export class SeriesList extends Component {
             new SeriesList('section.series-pending', false);
             new SeriesList('section.series-watched', true);
         }
-        this.updateComponent();
     }
     manageComponent() {
         document
-            .querySelectorAll('.button')
-            .forEach((item) => item.addEventListener('click', this.handlerButton.bind(this)));
-        document
-            .querySelectorAll('[type=checkbox]');
-        // .forEach((item) =>
-        //     item.addEventListener('change', this.handlerChange.bind(this))
-        // );
+            .querySelectorAll('.icon--delete')
+            .forEach((item) => item.addEventListener('click', this.deleteSerie.bind(this)));
+    }
+    deleteSerie(ev) {
+        const circleName = ev.target.dataset.name;
+        if (this.series.find(element => element.name === circleName) !== null) {
+            // console.log(this.series.find(element => element.name === circleName));
+            const series2 = this.series.filter(serie => serie.name !== circleName);
+            console.log(series2);
+            this.series = series2;
+            console.log('series: ' + this.series);
+            new StoreClass().setSeries(this.series);
+            new SeriesList('section.series-pending', false);
+            new SeriesList('section.series-watched', true);
+        }
     }
     updateComponent() {
         this.template = this.createTemplate();
         this.render(this.selector);
         this.manageComponent();
-        // alert('dffd')
-        // new AddTask('slot.addTask', this.addTask.bind(this));
     }
 }
