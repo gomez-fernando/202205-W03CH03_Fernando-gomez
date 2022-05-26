@@ -2,24 +2,49 @@ import { Component } from './component.js';
 import { seriesList } from '../models/data.js';
 export class SeriesList extends Component {
     series;
-    constructor(selector) {
+    watched;
+    list;
+    // unviuewed: Array<any>;
+    constructor(selector, watched) {
         super();
         this.series = seriesList;
+        this.watched = watched;
+        this.list = [];
         this.template = this.createTemplate();
         this.render(selector);
     }
     createTemplate() {
         let html = '';
-        this.series.forEach(element => {
-            console.log(element);
+        // eslint-disable-next-line no-extra-boolean-cast
+        if (!!this.watched) {
+            this.list = this.series.filter((item) => item.watched === true);
+            console.log(this.list);
+            html = `
+            <h3 class="subsection-title">Watched series</h3>
+            <p class="info">You have 4 series pending to watch</p>
+                <!--<p class="info">Congrats! You've watched all your series</p>-->
+                <ul class="series-list">
+            `;
+        }
+        else if (!this.watched) {
+            this.list = this.series.filter((item) => item.watched === false);
+            console.log(this.list);
+            html = `
+            <h3 class="subsection-title">Pending series</h3>
+            <p class="info">You have watched 4 series</p>
+            <!--<p class="info">You already have not watched any serie</p>-->
+            <ul class="series-list series-list--watched">
+            `;
+        }
+        this.list.forEach(element => {
             html += `<li class="serie">
             <img
               class="serie__poster"
-              src="https://m.media-amazon.com/images/M/MV5BZGJjYzhjYTYtMDBjYy00OWU1LTg5OTYtNmYwOTZmZjE3ZDdhXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_.jpg"
+              src="${element.poster}"
               alt="The Sopranos poster"
             />
-            <h4 class="serie__title">The Sopranos</h4>
-            <p class="serie__info">David Chase (1999)</p>
+            <h4 class="serie__title">${element.name}</h4>
+            <p class="serie__info">${element.creator} (${element.year})</p>
             <ul class="score">
               <li class="score__star">
                 <input type="radio" id="age1" name="age" value="30">
@@ -41,7 +66,6 @@ export class SeriesList extends Component {
             <i class="fas fa-times-circle icon--delete"></i>
           </li>`;
         });
-        console.log(html);
         return html;
     }
 }
