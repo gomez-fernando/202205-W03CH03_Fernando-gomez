@@ -46,19 +46,19 @@ export class SeriesList extends Component {
             <p class="serie__info">${element.creator} (${element.year})</p>
             <ul class="score">
               <li class="score__star">
-                <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
+                <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.score > 0 ? 'fas' : 'far'} fa-star" title="1/5"></i>
               </li>
               <li class="score__star">
-                <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
+                <i data-name="${element.name}" data-star="2" class="icon--score ${element.score > 1 ? 'fas' : 'far'} fa-star" title="2/5"></i>
               </li>
               <li class="score__star">
-                <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
+                <i data-name="${element.name}" data-star="3" class="icon--score ${element.score > 2 ? 'fas' : 'far'} fa-star" title="3/5"></i>
               </li>
               <li class="score__star">
-                <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
+                <i data-name="${element.name}" data-star="4" class="icon--score ${element.score > 3 ? 'fas' : 'far'} fa-star" title="4/5"></i>
               </li>
               <li class="score__star">
-                <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
+                <i data-name="${element.name}" data-star="5" class="icon--score ${element.score > 4 ? 'fas' : 'far'} fa-star" title="5/5"></i>
               </li>
             </ul>
             <i data-name="${element.name}" class="fas fa-times-circle icon--delete"></i>
@@ -93,11 +93,8 @@ export class SeriesList extends Component {
     deleteSerie(ev) {
         const circleName = ev.target.dataset.name;
         if (this.series.find(element => element.name === circleName) !== null) {
-            // console.log(this.series.find(element => element.name === circleName));
             const series2 = this.series.filter(serie => serie.name !== circleName);
-            console.log(series2);
             this.series = series2;
-            console.log('series: ' + this.series);
             new StoreClass().setSeries(this.series);
             new SeriesList('section.series-pending', false);
             new SeriesList('section.series-watched', true);
