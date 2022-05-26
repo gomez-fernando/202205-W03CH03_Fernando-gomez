@@ -34,35 +34,6 @@ export class SeriesList extends Component implements iComponent {
                 <ul class="series-list">
             `;
 
-            this.list.forEach(element => {
-                html += `<li class="serie">
-                <img
-                  class="serie__poster"
-                  src="${element.poster}"
-                  alt="The Sopranos poster"
-                />
-                <h4 class="serie__title">${element.name}</h4>
-                <p class="serie__info">${element.creator} (${element.year})</p>
-                <ul class="score">
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
-                  </li>
-                </ul>
-                <i class="fas fa-times-circle icon--delete"></i>
-              </li>`
-            });
         } else if(!this.watched){
             this.list = this.series.filter((item) => item.watched === false);
             html = `
@@ -72,36 +43,38 @@ export class SeriesList extends Component implements iComponent {
             <ul class="series-list series-list--watched">
             `;
 
-            this.list.forEach(element => {
-                html += `<li class="serie">
-                <img
-                  class="serie__poster"
-                  src="${element.poster}"
-                  alt="The Sopranos poster"
-                />
-                <h4 class="serie__title">${element.name}</h4>
-                <p class="serie__info">${element.creator} (${element.year})</p>
-                <ul class="score">
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
-                  </li>
-                  <li class="score__star">
-                    <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
-                  </li>
-                </ul>
-                <i class="fas fa-times-circle icon--delete"></i>
-              </li>`
-            });
+           
         }
+
+        this.list.forEach(element => {
+            html += `<li class="serie">
+            <img
+              class="serie__poster"
+              src="${element.poster}"
+              alt="The Sopranos poster"
+            />
+            <h4 class="serie__title">${element.name}</h4>
+            <p class="serie__info">${element.creator} (${element.year})</p>
+            <ul class="score">
+              <li class="score__star">
+                <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
+              </li>
+              <li class="score__star">
+                <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
+              </li>
+              <li class="score__star">
+                <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
+              </li>
+              <li class="score__star">
+                <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
+              </li>
+              <li class="score__star">
+                <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
+              </li>
+            </ul>
+            <i class="fas fa-times-circle icon--delete"></i>
+          </li>`
+        });
 
         return html;
     }

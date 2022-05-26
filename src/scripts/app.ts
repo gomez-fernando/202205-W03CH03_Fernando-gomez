@@ -8,7 +8,7 @@ import { SERIES } from '../models/data.js';
 
 (() => {
     
-    if(new StoreClass().getSeries() === undefined){
+    if(localStorage.getItem('Series') === null){
         new StoreClass().setSeries(SERIES);
     }
     
