@@ -77,8 +77,8 @@ img {
 .score {
   display: flex;
 }
-.series-list--watched .icon--score {
-/* .icon-score, .icon--score { */
+/* .series-list--watched .icon--score { */
+.icon-score, .icon--score {
   cursor: pointer;
 }
 .ranking-list {
