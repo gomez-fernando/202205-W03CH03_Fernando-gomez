@@ -60,6 +60,4 @@ let sds = [
 
   let series = [];
 series = sds.slice();
-console.log(series);
-// tasks[0].isComplete = true;
 export const SERIES: Array<SerieModel> = series;

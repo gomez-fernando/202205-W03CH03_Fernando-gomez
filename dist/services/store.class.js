@@ -5,15 +5,15 @@ export class StoreClass {
     constructor() {
         this.store = 'Series';
     }
-    getTasks() {
+    getSeries() {
         return localStorage.getItem(this.store)
             ? JSON.parse(localStorage.getItem(this.store))
             : SERIES;
     }
-    setTasks(tasks) {
+    setSeries(tasks) {
         localStorage.setItem(this.store, JSON.stringify(tasks));
     }
-    deleteTasks() {
+    seleteSeries() {
         localStorage.removeItem(this.store);
     }
 }
