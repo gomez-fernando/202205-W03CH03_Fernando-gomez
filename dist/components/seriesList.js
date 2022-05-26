@@ -1,15 +1,16 @@
 import { Component } from './component.js';
-import { seriesList } from '../models/data.js';
+// import { Serie } from './serie.js';
+import { seriesList } from '../models/data original.js';
 export class SeriesList extends Component {
     series;
     watched;
     list;
-    // unviuewed: Array<any>;
     constructor(selector, watched) {
         super();
         this.series = seriesList;
         this.watched = watched;
         this.list = [];
+        this.scoreStar();
         this.template = this.createTemplate();
         this.render(selector);
     }
@@ -18,7 +19,6 @@ export class SeriesList extends Component {
         // eslint-disable-next-line no-extra-boolean-cast
         if (!!this.watched) {
             this.list = this.series.filter((item) => item.watched === true);
-            console.log(this.list);
             html = `
             <h3 class="subsection-title">Watched series</h3>
             <p class="info">You have 4 series pending to watch</p>
@@ -28,7 +28,6 @@ export class SeriesList extends Component {
         }
         else if (!this.watched) {
             this.list = this.series.filter((item) => item.watched === false);
-            console.log(this.list);
             html = `
             <h3 class="subsection-title">Pending series</h3>
             <p class="info">You have watched 4 series</p>
@@ -47,25 +46,40 @@ export class SeriesList extends Component {
             <p class="serie__info">${element.creator} (${element.year})</p>
             <ul class="score">
               <li class="score__star">
-                <input type="radio" id="age1" name="age" value="30">
-                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
+                <i data-name="${element.name}" data-star="1" data-name="" class="icon--score ${element.watched ? 'fas' : 'far'} fa-star" title="1/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
+                <i data-name="${element.name}" data-star="2" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="2/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
+                <i data-name="${element.name}" data-star="3" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="3/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
+                <i data-name="${element.name}" data-star="4" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="4/5"></i>
               </li>
               <li class="score__star">
-                <i class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
+                <i data-name="${element.name}" data-star="5" class="icon--score ${this.watched ? 'fas' : 'far'} fa-star" title="5/5"></i>
               </li>
             </ul>
             <i class="fas fa-times-circle icon--delete"></i>
           </li>`;
         });
         return html;
+    }
+    scoreStar() {
+        document
+            .querySelectorAll('.score__star i')
+            .forEach((item) => {
+            item.addEventListener('click', this.handlerButton.bind(this));
+        });
+    }
+    handlerButton(ev) {
+        const starTitle = ev.target.dataset.star;
+        const starName = ev.target.dataset.name;
+        const item = this.series.find(element => element.name === starName);
+        if (item !== undefined && starTitle !== undefined) {
+            item.score = parseInt(starTitle, 10);
+        }
+        console.log(item);
     }
 }

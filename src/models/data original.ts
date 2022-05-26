@@ -1,8 +1,4 @@
-import { SerieModel } from './serie.js';
-
-
-
-let sds = [
+export const seriesList = [
     {
       id: 1,
       name: "The Sopranos",
@@ -57,9 +53,4 @@ let sds = [
       emmies: 0,
     },
   ];
-
-  let series = [];
-series = sds.slice();
-console.log(series);
-// tasks[0].isComplete = true;
-export const SERIES: Array<SerieModel> = series;
+  
